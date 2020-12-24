@@ -4,6 +4,7 @@ class Player {
         this.y = 50;
         this.angle = 0;
         this.rays = this.prepareRays();
+        this.view = '2D';
     }
 
     prepareRays = () => {
@@ -21,6 +22,7 @@ class Player {
     }
 
     mapShow = () => {
+        if (this.view === '3D') return;
         ellipse(this.x, this.y, 25);
     }
 
@@ -44,6 +46,12 @@ class Player {
         if (keyIsDown(DOWN_ARROW)) {
             this.x -= cos(this.angle);
             this.y -= sin(this.angle);
+        }
+        if (keyIsDown(50)) {
+            this.view = '2D';
+        }
+        if (keyIsDown(51)) {
+            this.view = '3D';
         }
     }
 }

@@ -6,15 +6,30 @@ class Ray {
         this.vect = p5.Vector.fromAngle(0);
         this.lineEndX = 0;
         this.lineEndY = 0;
+        this.intersection = null;
     }
 
     show = () => {
+        if (player.view === '3D') return this.show3D();
         push();
         stroke(255, 0, 0);
         translate(player.x, player.y);
         line(0, 0, this.lineEndX, this.lineEndY);
         noStroke();
         pop();
+    }
+
+    show3D = () => {
+        if (this.intersection === null) return;
+        const distance = dist(0, 0, this.intersection.x, this.intersection.y);
+        const wallHeight = map(distance, 0, visionLength, height, 0);
+        const wallWidth = this.angleOffset / 40;
+        const xPosition = wallWidth * width;
+        const brightness = map(distance, 0, visionLength, 255, 0);
+        fill(brightness);
+        rectMode(CENTER);
+        rect(xPosition, height / 2, 1 / 40 * width, wallHeight);
+        rectMode(CORNER);
     }
 
     configurePosition = () => {
@@ -24,13 +39,14 @@ class Ray {
 
     update = () => {
         this.configurePosition();
-        this.show();
         this.checkWalls();
+        this.show();
     }
 
     checkWalls = () => {
         for (let i = 0; i < walls.length; i++) {
             const intersection = this.getIntersection(walls[i]);
+            this.intersection = intersection;
             if (intersection === null) {
                 this.lineEndX = this.vect.x * visionLength;
                 this.lineEndY = this.vect.y * visionLength;

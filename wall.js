@@ -11,6 +11,7 @@ class Wall {
     }
 
     show = () => {
+        if (player.view === '3D') return;
         const {x1, y1, x2, y2} = this;
         stroke(255);
         line(x1, y1, x2, y2);

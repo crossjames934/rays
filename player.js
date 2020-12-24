@@ -8,7 +8,7 @@ class Player {
 
     prepareRays = () => {
         const rays = [];
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 40; i++) {
             rays.push(new Ray(i));
         }
         return rays;

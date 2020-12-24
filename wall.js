@@ -6,4 +6,14 @@ class Wall {
         this.y2 = y2;
     }
 
+    update = () => {
+        this.show();
+    }
+
+    show = () => {
+        const {x1, y1, x2, y2} = this;
+        stroke(255);
+        line(x1, y1, x2, y2);
+        noStroke();
+    }
 }

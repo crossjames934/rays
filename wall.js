@@ -6,5 +6,4 @@ class Wall {
         this.y2 = y2;
     }
 
-
 }

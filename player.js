@@ -1,34 +1,36 @@
 class Player {
-    x = 50;
-    y = 50;
-    angle = 0;
+    constructor() {
+        this.x = 50;
+        this.y = 50;
+        this.angle = 0;
+        this.rays = this.prepareRays();
+    }
 
-    update() {
+    prepareRays = () => {
+        const rays = [];
+        for (let i = 0; i < 20; i++) {
+            rays.push(new Ray(i));
+        }
+        return rays;
+    }
+
+    update = () => {
         this.mapShow();
+        this.updateRays();
         this.controls();
     }
 
-    mapShow() {
-        push();
-        fill(255);
-        translate(this.x, this.y);
-        ellipse(0, 0, 25);
-        rotate(this.angle);
-        stroke(255, 0, 0);
-        line(0, 0, 20, 0);
-        pop();
+    mapShow = () => {
+        ellipse(this.x, this.y, 25);
     }
 
-    checkers() {
-        fill(255, 0, 0);
-        // for (let i = 0; i < 100; i++) {
-        //     const x = i * cos(this.angle);
-        //     const y = i * sin(this.angle);
-        //     ellipse(x, y, 3);
-        // }
+    updateRays = () => {
+        for (let i = 0; i < this.rays.length; i++) {
+            this.rays[i].update();
+        }
     }
 
-    controls() {
+    controls = () => {
         if (keyIsDown(LEFT_ARROW)) {
             this.angle--;
         }

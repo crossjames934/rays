@@ -1,4 +1,4 @@
-const visionLength = 200;
+const visionLength = 300;
 
 class Ray {
     constructor(angleOffset) {
@@ -23,12 +23,13 @@ class Ray {
         if (this.intersection === null) return;
         const distance = dist(0, 0, this.intersection.x, this.intersection.y);
         const wallHeight = map(distance, 0, visionLength, height, 0);
-        const wallWidth = this.angleOffset / 40;
+        const wallWidth = (this.angleOffset + 15) / 30;
         const xPosition = wallWidth * width;
+        const segmentWidth = 1 / 30 * width;
         const brightness = map(distance, 0, visionLength, 255, 0);
         fill(brightness);
         rectMode(CENTER);
-        rect(xPosition, height / 2, 1 / 40 * width, wallHeight);
+        rect(xPosition, height / 2, segmentWidth, wallHeight);
         rectMode(CORNER);
     }
 
@@ -53,6 +54,7 @@ class Ray {
             } else {
                 this.lineEndX = intersection.x;
                 this.lineEndY = intersection.y;
+                break;
             }
         }
     }

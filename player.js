@@ -9,21 +9,33 @@ class Player {
 
     prepareRays = () => {
         const rays = [];
-        for (let i = 0; i < 40; i++) {
-            rays.push(new Ray(i));
+        const totalRays = 30;
+        for (let i = 0; i < totalRays; i++) {
+            rays.push(new Ray(i - (totalRays / 2)));
         }
         return rays;
     }
 
     update = () => {
-        this.mapShow();
+        this.show();
         this.updateRays();
         this.controls();
     }
 
-    mapShow = () => {
-        if (this.view === '3D') return;
+    show = () => {
+        if (this.view === '3D') return this.ground3d();
         ellipse(this.x, this.y, 25);
+    }
+
+    ground3d = () => {
+        const totalHeight = height / 2;
+        const segments = 10;
+        const segmentHeight = totalHeight / segments;
+        for (let i = 0; i < segments; i++) {
+            const alpha = i / segments * 255;
+            fill(100, 50, 50, alpha);
+            rect(0, height / 2 + segmentHeight * i, width, segmentHeight);
+        }
     }
 
     updateRays = () => {

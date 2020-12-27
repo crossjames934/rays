@@ -5,6 +5,7 @@ class Player {
         this.angle = 0;
         this.rays = this.prepareRays();
         this.view = '2D';
+        this.speed = 2;
     }
 
     prepareRays = () => {
@@ -52,12 +53,12 @@ class Player {
             this.angle++;
         }
         if (keyIsDown(UP_ARROW)) {
-            this.x += cos(this.angle);
-            this.y += sin(this.angle);
+            this.x += this.speed * cos(this.angle);
+            this.y += this.speed * sin(this.angle);
         }
         if (keyIsDown(DOWN_ARROW)) {
-            this.x -= cos(this.angle);
-            this.y -= sin(this.angle);
+            this.x -= this.speed * cos(this.angle);
+            this.y -= this.speed * sin(this.angle);
         }
         if (keyIsDown(50)) {
             this.view = '2D';
